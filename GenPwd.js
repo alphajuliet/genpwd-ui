@@ -35,8 +35,8 @@ GenPwd = (() => {
   };
 
   // Call the Genpwd FaaS web service
-  var randomWords = (nwords, punctuation, capitals, numbers) => {
-    const args = `nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
+  var randomWords = (genId, nwords, punctuation, capitals, numbers) => {
+    const args = `genId=${genId}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
     const url = 'https://alphajuliet.lib.id/genpwd?' + args
     return fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -51,11 +51,12 @@ GenPwd = (() => {
 
   // Main function to generate a list of random words, based on the chosen generator.
   var generate = (output, gen_opt, opts) => {
+    const genId = 3
     const nwords = 10
     const punctuation = opts.punctuation ? 1 : 0
     const capitals = opts.capitals ? 1 : 0
     const numbers = opts.numbers ? 1 : 0
-    randomWords(nwords, punctuation, capitals, numbers)
+    randomWords(genId, nwords, punctuation, capitals, numbers)
       .then(data => {
         $(output).empty();
         R.forEach( (i) => {
