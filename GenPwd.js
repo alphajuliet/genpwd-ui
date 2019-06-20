@@ -10,8 +10,8 @@ GenPwd = (() => {
   const Info = {
     name: "GenPwd",
     author: "AndrewJ",
-    version: "2.30",
-    date: "2018-03-21",
+    version: "3.0.0",
+    date: "2019-06-20",
     info: "GenPwd is a simple password generator.",
     appendTo: function (tagName) {
       let str = "<div>";
@@ -32,41 +32,41 @@ GenPwd = (() => {
   // Display the app info, and populate the list of available generators.
   var initialise = () => {
     Info.appendTo("header");
-
-    var fn;
-    $.each(Generator.generators, (i, gen) => {
-      if (gen.default === true)
-        fn = gen.fn + '" selected="true';
-      else
-        fn = gen.fn;
-      $('#gen').append($('<option value="' + fn + '">' + gen.name + '</option>'));
-    });
-
-    $('#clipboard').hide();
   };
+
+  // Call the Genpwd FaaS web service
+  var randomWords = (nwords, punctuation, capitals, numbers) => {
+    const args = `nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
+    const url = 'https://alphajuliet.lib.id/genpwd?' + args
+    return fetch(url, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, cors, *same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      redirect: 'follow', // manual, *follow, error
+      referrer: 'no-referrer', // no-referrer, *client
+    })
+    .then(response => response.json()); // parses JSON response into native Javascript objects
+  }
 
   // Main function to generate a list of random words, based on the chosen generator.
   var generate = (output, gen_opt, opts) => {
-    const nwords = 10;
-    const gen = Generator[gen_opt];
-
-    $(output).empty();
-    R.forEach( (i) => {
-      $(output)
-        .append($("<div class='word'></div>")
-          .append(gen.randomWord(opts)));
-    }, 
-    R.range(0, nwords));
-
-    // Copy to clipboard functionality
-    $('#clipboard').show();
-    $('.word').click( 
-      () => $('#copy-text').attr("value", $(this).text()));
-
-    var clipboard = new Clipboard('.copy-button');
-    clipboard.on('error', (e) => console.log(e) );
-
-  };
+    const nwords = 10
+    const punctuation = opts.punctuation ? 1 : 0
+    const capitals = opts.capitals ? 1 : 0
+    const numbers = opts.numbers ? 1 : 0
+    randomWords(nwords, punctuation, capitals, numbers)
+      .then(data => {
+        $(output).empty();
+        R.forEach( (i) => {
+          $(output)
+            .append($("<div class='word'></div>")
+              .append(data[i]))
+        }, 
+        R.range(0, nwords))
+      })
+      .catch(error => console.error(error))
+  }
 
   // Public data
   return {
