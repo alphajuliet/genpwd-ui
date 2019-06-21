@@ -62,30 +62,6 @@ footer {
 .button:hover { background-color: #f9f; }
 .description { font-size: 80%; font-weight: normal; color: #ccc; }
 
-#clipboard {
-  display: table;
-  margin: 6pt 0pt;
-  color: #999;
-  min-height: 14pt;
-  vertical-align: middle;
-}
-#copy-text { 
-  color: #999;
-  border: 1px solid #666; 
-  padding: 3pt 5pt;
-  vertical-align: middle;
-}
-.copy-button { 
-  position: relative;
-  border: 1px solid #666; 
-  margin-left: -1px;
-  top: -1px;
-  cursor: pointer;
-  background-color: #f4f4f4; 
-  vertical-align: middle;
-}
-.copy-button:hover, img:hover { background-color: #f9f; }
-
 img {
   position: relative;
   background-color: #f4f4f4; 

@@ -21,10 +21,18 @@
 		<header></header>
 		<div id="container">
 			<div id="controls">
-				<div><input class="button" type="button" value="Go!" onclick="go();"/></div>
-				<div><input type="checkbox" id="punctuation" checked /> Punctuation</div>
-				<div><input type="checkbox" id="numbers" checked /> Numbers </div>
-				<div><input type="checkbox" id="capitals" checked /> Capitals </div>
+        <div id="go_button">
+          <input class="button" type="button" value="Go!" onclick="go();"/>
+        </div>
+        <div id="selectors">
+          <div>Generator: <select id="generator"></select></div>
+          <div>Strength: <select id="strength"></select></div>
+        </div>
+        <div id="options">
+          <div><input type="checkbox" id="punctuation" checked /> Punctuation</div>
+          <div><input type="checkbox" id="numbers" checked /> Numbers </div>
+          <div><input type="checkbox" id="capitals" checked /> Capitals </div>
+        </div>
 			</div>
 			<div id="output">
         <div>Click on Go!</div>
@@ -33,7 +41,7 @@
     <footer></footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.26.1/ramda.min.js"></script>
     <script src="GenPwd.js"></script>
     <script type="text/javascript">
 		<!--
@@ -44,7 +52,7 @@
           "punctuation": $('#punctuation').is(':checked'),
           "numbers": $('#numbers').is(':checked')
         };
-        var gen = $('#gen').val();
+        var gen = $('#generator').val();
         GenPwd.generate('#output', gen, opts);
       };
       $(document).ready(() => {

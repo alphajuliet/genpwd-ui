@@ -27,15 +27,47 @@ GenPwd = (() => {
       str += this.info;
       return str;
     }
-  };
+  }
+
+  // Set up the generators
+  const initialise_generators = () => {
+
+    // Hard-code generators
+    const generators = [
+      { id: 0, name: "Generator 0" },
+      { id: 1, name: "Generator 1" },
+      { id: 2, name: "Generator 2" },
+      { id: 3, name: "Markov", default: true }
+    ]
+
+    let fn
+    $.each(generators, (i, gen) => {
+      if (gen.default == true)
+        fn = gen.id + '" selected="true'
+      else
+        fn = gen.id
+      $('#generator').append($('<option value="' + fn + '">' + gen.name + '</option>'))
+    })
+  }
+
+  const initialise_strengths = () => {
+    const strengths = [
+      "Simple", "Medium", "Strong"
+    ]
+    $.each(strengths, (i, s) => {
+      $('#strength').append($(`<option value="${s}">${s}</option>`))
+    })
+  }
 
   // Display the app info, and populate the list of available generators.
-  var initialise = () => {
-    Info.appendTo("header");
-  };
+  const initialise = () => {
+    Info.appendTo("header")
+    initialise_generators()
+    initialise_strengths()
+  }
 
   // Call the Genpwd FaaS web service
-  var randomWords = (genId, nwords, punctuation, capitals, numbers) => {
+  const randomWords = (genId, nwords, punctuation, capitals, numbers) => {
     const args = `genId=${genId}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
     const url = 'https://alphajuliet.lib.id/genpwd?' + args
     return fetch(url, {
@@ -50,8 +82,7 @@ GenPwd = (() => {
   }
 
   // Main function to generate a list of random words, based on the chosen generator.
-  var generate = (output, gen_opt, opts) => {
-    const genId = 3
+  const generate = (output, genId, opts) => {
     const nwords = 10
     const punctuation = opts.punctuation ? 1 : 0
     const capitals = opts.capitals ? 1 : 0
