@@ -70,8 +70,8 @@ GenPwd = (() => {
   }
 
   // Call the Genpwd FaaS web service
-  const randomWords = (genId, nwords, punctuation, capitals, numbers) => {
-    const args = `genId=${genId}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
+  const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
+    const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
     const url = 'https://alphajuliet.lib.id/genpwd?' + args
     return fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -91,7 +91,7 @@ GenPwd = (() => {
     const capitals = opts.capitals ? 1 : 0
     const numbers = opts.numbers ? 1 : 0
     
-    randomWords(genId, nwords, punctuation, capitals, numbers)
+    randomWords(genId, strength, nwords, punctuation, capitals, numbers)
       .then(data => {
         $(output).empty();
         R.forEach( (i) => {
