@@ -31,27 +31,34 @@ GenPwd = (() => {
 
   const initialise_generators = () => {
 
-    const generators = [
-      { id: 0, name: "Generator 0" },
-      { id: 1, name: "Generator 1" },
-      { id: 2, name: "Generator 2" },
-      { id: 3, name: "Markov", default: true }
-    ]
-
-    let fn
-    $.each(generators, (i, gen) => {
-      if (gen.default == true)
-        fn = gen.id + '" selected="true'
-      else
-        fn = gen.id
-      $('#generator').append($('<option value="' + fn + '">' + gen.name + '</option>'))
+    // Retrieve available generators
+    const url = 'https://alphajuliet.lib.id/genpwd/generators/'
+    const generators = fetch(url, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, cors, *same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      redirect: 'follow', // manual, *follow, error
+      referrer: 'no-referrer', // no-referrer, *client
     })
+    .then(response => response.json()) // parses JSON response into native Javascript objects
+    .then(generators => {
+      let fn
+      $.each(generators, (i, gen) => {
+        if (gen.default == true)
+          fn = gen.id + '" selected="true'
+        else
+          fn = gen.id
+        $('#generator').append($('<option value="' + fn + '">' + gen.name + '</option>'))
+      })  
+    })
+    .catch(error => console.error(error))
   }
 
   const initialise_strengths = () => {
     const strengths = [ "Simple", "Medium", "Strong" ]
     $.each(strengths, (i, s) => {
-      $('#strength').append($(`<option value="${s}">${s}</option>`))
+      $('#strength').append($(`<option value="${i}">${s}</option>`))
     })
   }
 
