@@ -1,3 +1,3 @@
 # GenPwd UI
 
-This is a standalone UI that accesses the GenPwd back end FaaS service.
+This is a standalone UI that accesses the [GenPwd FaaS](https://github.com/alphajuliet/genpwd-faas/) back end.

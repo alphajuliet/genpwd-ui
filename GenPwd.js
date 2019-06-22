@@ -11,7 +11,7 @@ GenPwd = (() => {
     name: "GenPwd",
     author: "AndrewJ",
     version: "3.0.0",
-    date: "2019-06-20",
+    date: "2019-06-21",
     info: "GenPwd is a simple password generator.",
     appendTo: function (tagName) {
       let str = "<div>";
@@ -29,10 +29,8 @@ GenPwd = (() => {
     }
   }
 
-  // Set up the generators
   const initialise_generators = () => {
 
-    // Hard-code generators
     const generators = [
       { id: 0, name: "Generator 0" },
       { id: 1, name: "Generator 1" },
@@ -51,9 +49,7 @@ GenPwd = (() => {
   }
 
   const initialise_strengths = () => {
-    const strengths = [
-      "Simple", "Medium", "Strong"
-    ]
+    const strengths = [ "Simple", "Medium", "Strong" ]
     $.each(strengths, (i, s) => {
       $('#strength').append($(`<option value="${s}">${s}</option>`))
     })
@@ -82,16 +78,17 @@ GenPwd = (() => {
   }
 
   // Main function to generate a list of random words, based on the chosen generator.
-  const generate = (output, genId, opts) => {
+  const generate = (target, genId, strength, opts) => {
     const nwords = 10
     const punctuation = opts.punctuation ? 1 : 0
     const capitals = opts.capitals ? 1 : 0
     const numbers = opts.numbers ? 1 : 0
+    
     randomWords(genId, nwords, punctuation, capitals, numbers)
       .then(data => {
         $(output).empty();
         R.forEach( (i) => {
-          $(output)
+          $(target)
             .append($("<div class='word'></div>")
               .append(data[i]))
         }, 

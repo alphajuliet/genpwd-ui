@@ -10,7 +10,7 @@
 		<link rel="icon" href="https://alphajuliet.com/images/favicon.ico"/>
 		<link rel="apple-touch-icon" sizes="57x57" href="https://alphajuliet.com/images/maitre-57x57.png" />
 		<link rel="apple-touch-icon" sizes="72x72" href="https://alphajuliet.com/images/maitre-72x72.png" />
-		<link rel="apple-touch-icon" sizes="114x114" href="https://alphajuliet.com/images/maitre-114x114.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://alphajuliet.com/images/maitre-114x114.png" />
     <link rel="stylesheet" href="main.css">
 	</head>
 	<body>
@@ -46,14 +46,15 @@
     <script type="text/javascript">
 		<!--
 			// $(GenPwd.initialise);
-      var go = function () {
+      const go = function () {
         var opts = {
           "capitals": $('#capitals').is(':checked'),
           "punctuation": $('#punctuation').is(':checked'),
           "numbers": $('#numbers').is(':checked')
-        };
-        var gen = $('#generator').val();
-        GenPwd.generate('#output', gen, opts);
+        }
+        const gen = $('#generator').val()
+        const str = $('#strength').val()
+        GenPwd.generate('#output', gen, str, opts)
       };
       $(document).ready(() => {
         GenPwd.initialise()

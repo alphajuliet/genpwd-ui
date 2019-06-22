@@ -46,20 +46,26 @@ footer {
   padding: 2pt 2pt;
 }
 #controls div { 
-  display: inline; 
+  /* display: inline;  */
   margin: 4pt 2pt; 
 }
 
+#options div {
+  display: inline;
+}
+
 .button { 
+  float: right;
+  width: 50pt;
   padding: 4pt 4pt;
   margin: 6pt 4pt;
   background-color: #6ff; 
   border: solid 1px #666; 
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
 }
 
-.button:hover { background-color: #f9f; }
+.button:hover { background-color: #fc0; }
 .description { font-size: 80%; font-weight: normal; color: #ccc; }
 
 img {
