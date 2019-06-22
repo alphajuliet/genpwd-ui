@@ -49,7 +49,7 @@ GenPwd = (() => {
           fn = gen.id + '" selected="true'
         else
           fn = gen.id
-        $('#generator').append($('<option value="' + fn + '">' + gen.name + '</option>'))
+        $('#generator').append($(`<option value="${fn}">${gen.name}</option>`))
       })  
     })
     .catch(error => console.error(error))
@@ -58,7 +58,10 @@ GenPwd = (() => {
   const initialise_strengths = () => {
     const strengths = [ "Simple", "Medium", "Strong" ]
     $.each(strengths, (i, s) => {
-      $('#strength').append($(`<option value="${i}">${s}</option>`))
+      //$('#strength').append($(`<option value="${i}">${s}</option>`))
+      const checked = (i == 0) ? 'checked="checked"' : ''
+      $('#strengths').append($(`<input type="radio" name="strength" id="rb${i}" value="${i}" ${checked}>`))
+      $('#strengths').append($(`<label for="rb${i}">${s}</label>`))
     })
   }
 

@@ -22,18 +22,18 @@
 		<div id="container">
 			<div id="controls">
         <div id="go_button">
-          <input class="button" type="button" value="Go!" onclick="go();"/>
+          <input id="go-button" type="button" value="Go!" onclick="go();"/>
         </div>
-        <div id="selectors">
-          <div>Generator: <select id="generator"></select></div>
-          <div>Strength: <select id="strength"></select></div>
+        <div><span class="label">Generator:</span>&nbsp;
+          <select class="selector" id="generator"></select>
         </div>
-        <div id="options">
-          <div><input type="checkbox" id="punctuation" checked /> Punctuation</div>
-          <div><input type="checkbox" id="numbers" checked /> Numbers </div>
-          <div><input type="checkbox" id="capitals" checked /> Capitals </div>
+        <div id="strengths"><span class="label">Strength:</span>&nbsp;</div>
+        <div id="options"><span class="label">Options:</span>&nbsp;
+          <div><input type="checkbox" id="punctuation" checked /><label for="punctuation">Punctuation</label></div>
+          <div><input type="checkbox" id="numbers" checked /><label for="numbers">Numbers</label></div>
+          <div><input type="checkbox" id="capitals" checked /><label for="capitals">Capitals</label></div>
         </div>
-			</div>
+      </div>
 			<div id="output">
         <div>Click on Go!</div>
       </div>
@@ -53,7 +53,7 @@
           "numbers": $('#numbers').is(':checked')
         }
         const gen = $('#generator').val()
-        const str = $('#strength').val()
+        const str = $("input[name=strength]:checked").val()
         GenPwd.generate('#output', gen, str, opts)
       };
       $(document).ready(() => {
