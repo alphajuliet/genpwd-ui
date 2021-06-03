@@ -1,7 +1,7 @@
 /* main.css */
 
-body { 
-  font-family: Helvetica Neue, Geneva, Arial, sans-serif; 
+body {
+  font-family: Helvetica Neue, Geneva, Arial, sans-serif;
   font-weight: lighter;
   font-size: 10pt;
   margin: 3% 5%;
@@ -9,9 +9,9 @@ body {
 }
 
 header p { margin: 2pt; }
-header .title { 
-  font-size: 20pt; 
-  color: #639; 
+header .title {
+  font-size: 20pt;
+  color: #639;
 }
 footer { 
   font-size: 8pt;
@@ -40,7 +40,7 @@ footer {
  * Controls
  */
 
-#controls { 
+#controls {
   background-color: #eef; 
   border-radius: 5px;
   padding: 4pt 8pt;
@@ -59,6 +59,10 @@ footer {
 .label {
   color: #33f;
   margin-right: 16px;
+}
+
+sl-button {
+    cursor: pointer;
 }
 
 #go-button {

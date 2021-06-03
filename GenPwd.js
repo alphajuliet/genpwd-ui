@@ -27,12 +27,14 @@ GenPwd = (() => {
       str += this.info;
       return str;
     }
-  }
+  };
+
+  const api_root = "https://alphajuliet.api.stdlib.com/genpwd/";
 
   const initialise_generators = () => {
 
     // Retrieve available generators
-    const url = 'https://alphajuliet.lib.id/genpwd/generators/'
+    const url = `${api_root}generators/`;
     const generators = fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, cors, *same-origin
@@ -40,52 +42,51 @@ GenPwd = (() => {
       credentials: 'same-origin', // include, *same-origin, omit
       redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
-    })
-    .then(response => response.json()) // parses JSON response into native Javascript objects
-    .then(generators => {
-      let fn
-      $.each(generators, (i, gen) => {
-        if (gen.default == true)
-          fn = gen.id + '" selected="true'
-        else
-          fn = gen.id
-        $('#generator').append($(`<option value="${fn}">${gen.name}</option>`))
-      })  
-    })
-    .catch(error => console.error(error))
-  }
+    }).then(response => response.json()) // parses JSON response into native Javascript objects
+      .then(generators => {
+        let fn;
+        $.each(generators, (i, gen) => {
+          if (gen.default == true)
+            fn = gen.id + '" selected="true';
+          else
+            fn = gen.id
+          $('#generator').append($(`<sl-menu-item value="${fn}">${gen.name}</sl-menu-item>`));
+        });
+      })
+      .catch(error => console.error(error));
+  };
 
   const initialise_strengths = () => {
-    const strengths = [ "Simple", "Medium", "Strong" ]
+      const strengths = [ "Simple", "Medium", "Strong" ];
     $.each(strengths, (i, s) => {
       //$('#strength').append($(`<option value="${i}">${s}</option>`))
-      const checked = (i == 0) ? 'checked="checked"' : ''
-      $('#strengths').append($(`<input type="radio" name="strength" id="rb${i}" value="${i}" ${checked}>`))
-      $('#strengths').append($(`<label for="rb${i}">${s}</label>`))
-    })
-  }
+        const checked = (i == 0) ? 'checked="checked"' : '';
+        $('#strengths').append($(`<input type="radio" name="strength" id="rb${i}" value="${i}" ${checked}>`));
+        $('#strengths').append($(`<label for="rb${i}">${s}</label>`));
+    });
+  };
 
   // Display the app info, and populate the list of available generators.
   const initialise = () => {
-    Info.appendTo("header")
-    initialise_generators()
-    initialise_strengths()
-  }
+      Info.appendTo("header");
+      initialise_generators();
+      initialise_strengths();
+  };
 
-  // Call the Genpwd FaaS web service
-  const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
-    const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`
-    const url = 'https://alphajuliet.lib.id/genpwd?' + args
-    return fetch(url, {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, cors, *same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      redirect: 'follow', // manual, *follow, error
-      referrer: 'no-referrer', // no-referrer, *client
-    })
-    .then(response => response.json()); // parses JSON response into native Javascript objects
-  }
+    // Call the Genpwd FaaS web service
+    const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
+        const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`;
+        const url = `${api_root}?${args}`;
+        return fetch(url, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+        .then(response => response.json()); // parses JSON response into native Javascript objects
+    };
 
   // Main function to generate a list of random words, based on the chosen generator.
   const generate = (target, genId, strength, opts) => {

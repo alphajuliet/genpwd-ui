@@ -12,6 +12,11 @@
 		<link rel="apple-touch-icon" sizes="72x72" href="https://alphajuliet.com/images/maitre-72x72.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="https://alphajuliet.com/images/maitre-114x114.png" />
     <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/@shoelace-style/shoelace/dist/shoelace/shoelace.css"> -->
+    <!-- <script type="module" src="https://unpkg.com/@shoelace-style/shoelace/dist/shoelace/shoelace.esm.js"></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.42/dist/themes/base.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.42/dist/shoelace.js"></script>
+
 	</head>
 	<body>
     <!--[if lt IE 8]>
@@ -21,17 +26,18 @@
 		<header></header>
 		<div id="container">
 			<div id="controls">
-        <div id="go_button">
-          <input id="go-button" type="button" value="Go!" onclick="go();"/>
-        </div>
         <div><span class="label">Generator:</span>&nbsp;
-          <select class="selector" id="generator"></select>
+          <sl-select size="small" class="selector" id="generator"></sl-select>
         </div>
         <div id="strengths"><span class="label">Strength:</span>&nbsp;</div>
         <div id="options"><span class="label">Options:</span>&nbsp;
           <div><input type="checkbox" id="punctuation" checked /><label for="punctuation">Punctuation</label></div>
           <div><input type="checkbox" id="numbers" checked /><label for="numbers">Numbers</label></div>
           <div><input type="checkbox" id="capitals" checked /><label for="capitals">Capitals</label></div>
+        </div>
+        <div id="go_button">
+            <!-- <input id="go-button" type="button" value="Go!" onclick="go();"/> -->
+            <sl-button size="small" onclick="go();">Go</sl-button>
         </div>
       </div>
 			<div id="output">
