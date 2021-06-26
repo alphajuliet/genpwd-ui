@@ -48,10 +48,10 @@ GenPwd = (() => {
         let fn;
         generators.forEach((gen) => {
           if (gen.default == true)
-            fn = gen.id + '" selected="true';
+            fn = `'${gen.id}' selected`;
           else
-            fn = gen.id
-          $('#generator').append($(`<option value="${fn}">${gen.name}</option>`));
+            fn = `${gen.id}`
+          $('#generator').append($(`<option value=${fn}>${gen.name}</option>`));
         });
       })
       .catch(error => console.error(error));

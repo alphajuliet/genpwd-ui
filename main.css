@@ -7,7 +7,7 @@
 }
 
 :root {
-  --primaryColour: #639;
+  --primaryColour: #53a;
   --textColour: #f8f8f8;
   --textColour2: #d9f;
   --textColour3: #333;
@@ -54,8 +54,11 @@ footer {
 }
 
 .control {
-  margin: 0 8pt;
-  /* font-size: 90%; */
+  margin: 0pt 8pt;
+}
+
+.control span {
+  margin-bottom: 2pt;
 }
 
 .control label {
@@ -76,6 +79,16 @@ footer {
   -webkit-appearance: none;
 }
 
+#ctrl-generator select {
+  /* appearance: none; */
+  /* -webkit-appearance: none; */
+  font-size: 95%;
+  background-color: var(--textColour);
+  padding: 2pt 4pt;
+  border-radius: 4px;
+  border: none;
+}
+
 #ctrl-strength {
   display: flex;
   align-items: left;
@@ -89,21 +102,19 @@ footer {
   position: relative;
 }
 
-#ctrl-button {
-  /* color: #333; */
-  /* padding: 2pt; */
-  /* margin: 0; */
-  /* background-color: #6ff;  */
-  /* border: solid 1px #666; */
-  /* border-radius: 8px; */
-  /* cursor: pointer; */
+#ctrl-button {}
+
+#ctrl-button button {
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 95%;
+  background-color: var(--textColour);
+  border-radius: 4px;
+  border: none;
+  padding: 2pt 4pt;
 }
 
 #btn-generate label { color: var(--textColour3); }
-
-#ctrl-button:hover {
-  /* background-color: #fc0; */
-}
 
 .description {
   font-size: 80%;
