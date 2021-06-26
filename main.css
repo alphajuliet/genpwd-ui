@@ -1,9 +1,22 @@
 /* main.css */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --primaryColour: #639;
+  --textColour: #f8f8f8;
+  --textColour2: #d9f;
+  --textColour3: #333;
+}
+
 body {
-  font-family: Helvetica Neue, Geneva, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Geneva, Arial, sans-serif;
   font-weight: lighter;
-  font-size: 10pt;
+  /* font-size: 10pt; */
   margin: 3% 5%;
   width: 90%;
 }
@@ -11,7 +24,8 @@ body {
 header p { margin: 2pt; }
 header .title {
   font-size: 20pt;
-  color: #639;
+  font-weight: lighter;
+  color: var(--primaryColour);
 }
 footer { 
   font-size: 8pt;
@@ -21,63 +35,95 @@ footer {
 #output { margin-top: 5pt; }
 
 /* -----------------------------
- * Words
+ * Controls
  */
 
-.word { 
-  font-size: 125%; 
-  margin: 2pt 0pt; 
-  display: block; 
+#controls {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  background-color: var(--primaryColour);
+  color: var(--textColour);
+  border-radius: 4px;
+  padding: 8pt 0pt;
+}
+
+.ctrl-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.control {
+  margin: 0 8pt;
+  /* font-size: 90%; */
+}
+
+.control label {
+  color: var(--textColour2);
+}
+
+.control input {
+  margin-right: 8px;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+}
+
+#ctrl-generator {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  -webkit-appearance: none;
+}
+
+#ctrl-strength {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+
+#ctrl-options {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  position: relative;
+}
+
+#ctrl-button {
+  /* color: #333; */
+  /* padding: 2pt; */
+  /* margin: 0; */
+  /* background-color: #6ff;  */
+  /* border: solid 1px #666; */
+  /* border-radius: 8px; */
+  /* cursor: pointer; */
+}
+
+#btn-generate label { color: var(--textColour3); }
+
+#ctrl-button:hover {
+  /* background-color: #fc0; */
+}
+
+.description {
+  font-size: 80%;
+  font-weight: normal;
+  color: #ccc;
+}
+
+/* -----------------------------
+ * Words
+ */
+.word {
+  /* font-size: 125%; */
+  margin: 2pt 0pt;
+  display: block;
   padding: 4pt 0pt;
   border-color: #ccc;
   border-width: 0px 0px 1px 0px;
   border-style: solid;
 }
-/* .word:nth-child(even) { background-color: #eef; } */ 
-
-
-/* -----------------------------
- * Controls
- */
-
-#controls {
-  background-color: #eef; 
-  border-radius: 5px;
-  padding: 4pt 8pt;
-}
-#controls div { 
-  margin: 4pt 2pt; 
-}
-#options div {
-  display: inline;
-}
-
-#strengths label {
-  padding-right: 8pt; 
-}
-
-.label {
-  color: #33f;
-  margin-right: 16px;
-}
-
-sl-button {
-    cursor: pointer;
-}
-
-#go-button {
-  float: right;
-  width: 50pt;
-  padding: 4pt 4pt;
-  margin: 6pt 4pt;
-  background-color: #6ff; 
-  border: solid 1px #666; 
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-#go-button:hover { background-color: #fc0; }
-.description { font-size: 80%; font-weight: normal; color: #ccc; }
+/* .word:nth-child(even) { background-color: #eef; } */
 
 /* -----------------------------
  * Format for mobile

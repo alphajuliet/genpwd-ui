@@ -1,72 +1,80 @@
 <!DOCTYPE html>
 <html>
-	<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>GenPwd</title>
-    <meta name="description" content="Simple password generator">
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<link rel="icon" href="https://alphajuliet.com/images/favicon.ico"/>
-		<link rel="apple-touch-icon" sizes="57x57" href="https://alphajuliet.com/images/maitre-57x57.png" />
-		<link rel="apple-touch-icon" sizes="72x72" href="https://alphajuliet.com/images/maitre-72x72.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="https://alphajuliet.com/images/maitre-114x114.png" />
-    <link rel="stylesheet" href="main.css">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/@shoelace-style/shoelace/dist/shoelace/shoelace.css"> -->
-    <!-- <script type="module" src="https://unpkg.com/@shoelace-style/shoelace/dist/shoelace/shoelace.esm.js"></script> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.42/dist/themes/base.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.42/dist/shoelace.js"></script>
-
-	</head>
-	<body>
-    <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser.
-      Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-		<header></header>
-		<div id="container">
-			<div id="controls">
-        <div><span class="label">Generator:</span>&nbsp;
-          <sl-select size="small" class="selector" id="generator"></sl-select>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title>GenPwd</title>
+        <meta name="description" content="Simple password generator"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="icon" href="https://alphajuliet.com/images/favicon.ico"/>
+        <link rel="apple-touch-icon" sizes="57x57" href="https://alphajuliet.com/images/maitre-57x57.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="https://alphajuliet.com/images/maitre-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="https://alphajuliet.com/images/maitre-114x114.png"/>
+        <link rel="stylesheet" href="main.css">
+        <!-- <link rel="stylesheet" href="https://unpkg.com/@shoelace-style/shoelace/dist/shoelace/shoelace.css"> -->
+        <!-- <script type="module" src="https://unpkg.com/@shoelace-style/shoelace/dist/shoelace/shoelace.esm.js"></script> -->
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.42/dist/themes/base.css"/> -->
+        <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.42/dist/shoelace.js"></script> -->
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser.
+                Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <header></header>
+        <div id="container">
+            <div id="controls">
+                <div class="ctrl-row">
+                    <div class="control" id="ctrl-generator">
+                        Generator
+                        <select class="selector" id="generator"></select>
+                    </div>
+                    <div class="control" id="ctrl-strength">
+                        Strength
+                    </div>
+                    <div class="control" id="ctrl-options">
+                        Options
+                        <label><input type="checkbox" id="punctuation" checked />Punctuation</label>
+                        <label><input type="checkbox" id="numbers" checked />Numbers</label>
+                        <label><input type="checkbox" id="capitals" checked />Capitals</label>
+                    </div>
+                </div>
+                <div class="ctrl-row">
+                    <div class="control" id="ctrl-button">
+                        <button id="btn-generate" autofocus type="button" onclick="go()">
+                            <label>Generate</label>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="output">
+                <div>Click the button...</div>
+            </div>
         </div>
-        <div id="strengths"><span class="label">Strength:</span>&nbsp;</div>
-        <div id="options"><span class="label">Options:</span>&nbsp;
-          <div><input type="checkbox" id="punctuation" checked /><label for="punctuation">Punctuation</label></div>
-          <div><input type="checkbox" id="numbers" checked /><label for="numbers">Numbers</label></div>
-          <div><input type="checkbox" id="capitals" checked /><label for="capitals">Capitals</label></div>
-        </div>
-        <div id="go_button">
-            <!-- <input id="go-button" type="button" value="Go!" onclick="go();"/> -->
-            <sl-button size="small" onclick="go();">Go</sl-button>
-        </div>
-      </div>
-			<div id="output">
-        <div>Click on Go!</div>
-      </div>
-		</div>
     <footer></footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.26.1/ramda.min.js"></script>
     <script src="GenPwd.js"></script>
     <script type="text/javascript">
-		<!--
-			// $(GenPwd.initialise);
-      const go = function () {
-        var opts = {
-          "capitals": $('#capitals').is(':checked'),
-          "punctuation": $('#punctuation').is(':checked'),
-          "numbers": $('#numbers').is(':checked')
-        }
-        const gen = $('#generator').val()
-        const str = $("input[name=strength]:checked").val()
-        GenPwd.generate('#output', gen, str, opts)
-      };
-      $(document).ready(() => {
-        GenPwd.initialise()
-			});
-    -->
-		</script>
-		<noscript><p>GenPwd requires JavaScript to be enabled</p></noscript>
-	</body>
+    <!--
+        // $(GenPwd.initialise);
+        const go = function () {
+          var opts = {
+            "capitals": $('#capitals').is(':checked'),
+            "punctuation": $('#punctuation').is(':checked'),
+            "numbers": $('#numbers').is(':checked')
+          }
+          const gen = $('#generator').val()
+          const str = $("input[name=strength]:checked").val()
+          GenPwd.generate('#output', gen, str, opts)
+        };
+        $(document).ready(() => {
+          GenPwd.initialise()
+        });
+        -->
+    </script>
+        <noscript><p>GenPwd requires JavaScript to be enabled</p></noscript>
+    </body>
 </html>

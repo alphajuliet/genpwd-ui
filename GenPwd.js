@@ -10,8 +10,8 @@ GenPwd = (() => {
   const Info = {
     name: "GenPwd",
     author: "AndrewJ",
-    version: "3.0.0",
-    date: "2019-06-21",
+    version: "3.0.1",
+    date: "2021-06-26",
     info: "GenPwd is a simple password generator.",
     appendTo: function (tagName) {
       let str = "<div>";
@@ -29,6 +29,7 @@ GenPwd = (() => {
     }
   };
 
+  //---------------------------------
   const api_root = "https://alphajuliet.api.stdlib.com/genpwd/";
 
   const initialise_generators = () => {
@@ -45,48 +46,51 @@ GenPwd = (() => {
     }).then(response => response.json()) // parses JSON response into native Javascript objects
       .then(generators => {
         let fn;
-        $.each(generators, (i, gen) => {
+        generators.forEach((gen) => {
           if (gen.default == true)
             fn = gen.id + '" selected="true';
           else
             fn = gen.id
-          $('#generator').append($(`<sl-menu-item value="${fn}">${gen.name}</sl-menu-item>`));
+          $('#generator').append($(`<option value="${fn}">${gen.name}</option>`));
         });
       })
       .catch(error => console.error(error));
   };
 
   const initialise_strengths = () => {
-      const strengths = [ "Simple", "Medium", "Strong" ];
-    $.each(strengths, (i, s) => {
+    const strengths = [ "Simple", "Medium", "Strong" ];
+    strengths.forEach((s, i) => {
       //$('#strength').append($(`<option value="${i}">${s}</option>`))
-        const checked = (i == 0) ? 'checked="checked"' : '';
-        $('#strengths').append($(`<input type="radio" name="strength" id="rb${i}" value="${i}" ${checked}>`));
-        $('#strengths').append($(`<label for="rb${i}">${s}</label>`));
+      const checked = (i == 0) ? 'checked="checked"' : '';
+      let lbl = $('<label></label>')
+          .append($(`<input type="radio" name="strength" id="rb${i}" value="${i}" ${checked}>`))
+          .append(s)
+      $('#ctrl-strength').append(lbl);
     });
   };
 
   // Display the app info, and populate the list of available generators.
   const initialise = () => {
-      Info.appendTo("header");
-      initialise_generators();
-      initialise_strengths();
+    Info.appendTo("header");
+    initialise_generators();
+    initialise_strengths();
   };
 
-    // Call the Genpwd FaaS web service
-    const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
-        const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`;
-        const url = `${api_root}?${args}`;
-        return fetch(url, {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            redirect: 'follow', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client
-        })
-        .then(response => response.json()); // parses JSON response into native Javascript objects
-    };
+  //---------------------------------
+  // Call the Genpwd FaaS web service
+  const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
+    const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`;
+    const url = `${api_root}?${args}`;
+    return fetch(url, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, cors, *same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      redirect: 'follow', // manual, *follow, error
+      referrer: 'no-referrer', // no-referrer, *client
+    })
+      .then(response => response.json()); // parses JSON response into native Javascript objects
+  };
 
   // Main function to generate a list of random words, based on the chosen generator.
   const generate = (target, genId, strength, opts) => {
@@ -101,13 +105,13 @@ GenPwd = (() => {
         R.forEach( (i) => {
           $(target)
             .append($("<div class='word'></div>")
-              .append(data[i]))
-        }, 
-        R.range(0, nwords))
+                    .append(data[i]))
+        }, R.range(0, nwords))
       })
       .catch(error => console.error(error))
   }
 
+  //---------------------------------
   // Public data
   return {
     initialise: initialise,
