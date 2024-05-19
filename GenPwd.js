@@ -33,27 +33,25 @@ GenPwd = (() => {
   // const api_root = "https://alphajuliet.api.stdlib.com/genpwd/";
   const api_root = "https://bo1j45kbnb.execute-api.us-east-1.amazonaws.com"
 
-  const initialise_generators = () => {
+  async function initialise_generators() {
     // Retrieve available generators
     const url = `${api_root}/generators`;
-    const generators = fetch(url, {
+    const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       referrer: 'no-referrer', // no-referrer, *client
-    }).then(response => response.body.json()) 
-      .then(generators => {
-        console.log(generators);
-        let fn;
-        generators.forEach((gen) => {
-          if (gen.default == true)
-            fn = `'${gen.id}' selected`;
-          else
-            fn = `${gen.id}`
-          $('#generator').append($(`<option value=${fn}>${gen.name}</option>`));
-        });
-      })
-      .catch(error => console.error(error));
+    })
+    const generators = response.body.json()
+    console.log(generators);
+    let fn;
+    generators.forEach((gen) => {
+      if (gen.default == true)
+        fn = `'${gen.id}' selected`;
+      else
+        fn = `${gen.id}`
+      $('#generator').append($(`<option value=${fn}>${gen.name}</option>`));
+    });
   };
 
   const initialise_strengths = () => {
@@ -77,15 +75,16 @@ GenPwd = (() => {
 
   //---------------------------------
   // Call the Genpwd FaaS web service
-  const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
+  async function randomWords(genId, strength, nwords, punctuation, capitals, numbers) {
     const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`;
     const url = `${api_root}/generate?${args}`;
-    return fetch(url, {
+    const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       referrer: 'no-referrer', // no-referrer, *client
-    }).then(response => response.body.json()); // parses JSON response into native Javascript objects
+    })
+    return response.body.json();
   };
 
   // Main function to generate a list of random words, based on the chosen generator.
