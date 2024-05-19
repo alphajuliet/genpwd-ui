@@ -30,21 +30,20 @@ GenPwd = (() => {
   };
 
   //---------------------------------
-  const api_root = "https://alphajuliet.api.stdlib.com/genpwd/";
+  // const api_root = "https://alphajuliet.api.stdlib.com/genpwd/";
+  const api_root = "https://bo1j45kbnb.execute-api.us-east-1.amazonaws.com"
 
   const initialise_generators = () => {
-
     // Retrieve available generators
-    const url = `${api_root}generators/`;
+    const url = `${api_root}/generators`;
     const generators = fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
-    }).then(response => response.json()) // parses JSON response into native Javascript objects
+    }).then(response => response.body.json()) 
       .then(generators => {
+        console.log(generators);
         let fn;
         generators.forEach((gen) => {
           if (gen.default == true)
@@ -80,16 +79,13 @@ GenPwd = (() => {
   // Call the Genpwd FaaS web service
   const randomWords = (genId, strength, nwords, punctuation, capitals, numbers) => {
     const args = `genId=${genId}&strength=${strength}&nwords=${nwords}&punctuation=${punctuation}&capitals=${capitals}&numbers=${numbers}`;
-    const url = `${api_root}?${args}`;
+    const url = `${api_root}/generate?${args}`;
     return fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
-    })
-      .then(response => response.json()); // parses JSON response into native Javascript objects
+    }).then(response => response.body.json()); // parses JSON response into native Javascript objects
   };
 
   // Main function to generate a list of random words, based on the chosen generator.
