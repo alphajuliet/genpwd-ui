@@ -42,7 +42,7 @@ GenPwd = (() => {
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       referrer: 'no-referrer', // no-referrer, *client
     })
-    const generators = response.json()
+    const generators = await response.json()
     console.log(generators);
     let fn;
     generators.forEach((gen) => {
@@ -84,7 +84,8 @@ GenPwd = (() => {
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       referrer: 'no-referrer', // no-referrer, *client
     })
-    return response.json();
+    const words = await response.json();
+    return words;
   };
 
   // Main function to generate a list of random words, based on the chosen generator.
