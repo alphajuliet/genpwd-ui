@@ -85,7 +85,7 @@ GenPwd = (() => {
       referrer: 'no-referrer', // no-referrer, *client
     })
     const words = await response.json();
-    return words;
+    return words.words;
   };
 
   // Main function to generate a list of random words, based on the chosen generator.
