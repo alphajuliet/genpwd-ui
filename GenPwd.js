@@ -45,7 +45,7 @@ GenPwd = (() => {
     const generators = await response.json()
     console.log(generators);
     let fn;
-    generators.forEach((gen) => {
+    generators.generators.forEach((gen) => {
       if (gen.default == true)
         fn = `'${gen.id}' selected`;
       else
