@@ -30,7 +30,6 @@ GenPwd = (() => {
   };
 
   //---------------------------------
-  // const api_root = "https://alphajuliet.api.stdlib.com/genpwd/";
   const api_root = "https://bo1j45kbnb.execute-api.us-east-1.amazonaws.com"
 
   async function initialise_generators() {
@@ -42,8 +41,7 @@ GenPwd = (() => {
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       referrer: 'no-referrer', // no-referrer, *client
     })
-    const generators = await response.json()
-    console.log(generators);
+    const generators = await response.json();
     let fn;
     generators.generators.forEach((gen) => {
       if (gen.default == true)
@@ -62,7 +60,7 @@ GenPwd = (() => {
       let lbl = $('<label></label>')
           .append($(`<input type="radio" name="strength" id="rb${i}" value="${i}" ${checked}>`))
           .append(s)
-      $('#ctrl-strength').append(lbl);
+      $('#ctrl-strength').append(lbl)
     });
   };
 
@@ -83,17 +81,17 @@ GenPwd = (() => {
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       referrer: 'no-referrer', // no-referrer, *client
-    })
+    });
     const words = await response.json();
     return words.words;
   };
 
   // Main function to generate a list of random words, based on the chosen generator.
   const generate = (target, genId, strength, opts) => {
-    const nwords = 10
-    const punctuation = opts.punctuation ? 1 : 0
-    const capitals = opts.capitals ? 1 : 0
-    const numbers = opts.numbers ? 1 : 0
+    const nwords = 10;
+    const punctuation = opts.punctuation ? 1 : 0;
+    const capitals = opts.capitals ? 1 : 0;
+    const numbers = opts.numbers ? 1 : 0;
     
     randomWords(genId, strength, nwords, punctuation, capitals, numbers)
       .then(data => {
@@ -104,7 +102,7 @@ GenPwd = (() => {
                     .append(data[i]))
         }, R.range(0, nwords))
       })
-      .catch(error => console.error(error))
+      .catch(error => console.error(error));
   }
 
   //---------------------------------
