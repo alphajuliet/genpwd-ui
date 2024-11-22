@@ -86,6 +86,11 @@ GenPwd = (() => {
     return words.words;
   };
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("Copied item to clipboard");
+  };
+
   // Main function to generate a list of random words, based on the chosen generator.
   const generate = (target, genId, strength, opts) => {
     const nwords = 10;
@@ -98,7 +103,7 @@ GenPwd = (() => {
         $(output).empty();
         R.forEach( (i) => {
           $(target)
-            .append($("<div class='word'></div>")
+            .append($("<div class='word' onclick='copyToClipboard(this)'></div>")
                     .append(data[i]))
         }, R.range(0, nwords))
       })
