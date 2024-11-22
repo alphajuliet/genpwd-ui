@@ -4,14 +4,15 @@
 // Namespace: GenPwd
 
 var GenPwd = GenPwd || {};
+var R;
 GenPwd = (() => {
 
   // Application metadata
   const Info = {
     name: "GenPwd",
     author: "AndrewJ",
-    version: "3.0.1",
-    date: "2021-06-26",
+    version: "3.1.0",
+    date: "2024-11-22",
     info: "GenPwd is a simple password generator.",
     appendTo: function (tagName) {
       let str = "<div>";
@@ -100,11 +101,13 @@ GenPwd = (() => {
     
     randomWords(genId, strength, nwords, punctuation, capitals, numbers)
       .then(data => {
-        $(output).empty();
+        $('#output').empty();
         R.forEach( (i) => {
-          $(target)
-            .append($("<div class='word' onclick='copyToClipboard(this)'></div>")
-                    .append(data[i]))
+          const item = $("<div class='word'></div>").append(data[i]);
+          $(target).append(item);
+          $(item).on('click', () => {
+            copyToClipboard(data[i]);
+          })
         }, R.range(0, nwords))
       })
       .catch(error => console.error(error));

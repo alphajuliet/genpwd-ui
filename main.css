@@ -11,6 +11,7 @@
   --textColour: #f8f8f8;
   --textColour2: #d9f;
   --textColour3: #333;
+  --highlight: #c4f;
 }
 
 body {
@@ -133,8 +134,12 @@ footer {
   border-color: #ccc;
   border-width: 0px 0px 1px 0px;
   border-style: solid;
+  cursor: pointer;
 }
-/* .word:nth-child(even) { background-color: #eef; } */
+
+.word:hover {
+  color: var(--highlight);
+}
 
 /* -----------------------------
  * Format for mobile
