@@ -47,6 +47,7 @@ footer {
   color: var(--textColour);
   border-radius: 4px;
   padding: 8pt 0pt;
+  font-size: 90%;
 }
 
 .ctrl-row {
@@ -83,7 +84,6 @@ footer {
 #ctrl-generator select {
   /* appearance: none; */
   /* -webkit-appearance: none; */
-  font-size: 95%;
   background-color: var(--textColour);
   padding: 2pt 4pt;
   border-radius: 4px;
@@ -106,7 +106,6 @@ footer {
 #ctrl-button button {
   appearance: none;
   -webkit-appearance: none;
-  font-size: 95%;
   background-color: var(--textColour);
   border-radius: 4px;
   border: none;
