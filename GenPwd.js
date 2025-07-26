@@ -11,8 +11,8 @@ GenPwd = (() => {
   const Info = {
     name: "GenPwd",
     author: "AndrewJ",
-    version: "3.1.0",
-    date: "2024-11-22",
+    version: "3.1.1",
+    date: "2025-07-27",
     info: "GenPwd is a simple password generator.",
     appendTo: function (tagName) {
       let str = "<div>";
