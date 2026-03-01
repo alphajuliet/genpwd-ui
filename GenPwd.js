@@ -32,7 +32,7 @@ GenPwd = (() => {
 
   //---------------------------------
   // const api_root = "https://bo1j45kbnb.execute-api.us-east-1.amazonaws.com"
-  const api_root = "https://genpwd-engine.web-c10.workers.dev/"
+  const api_root = "https://genpwd-engine.web-c10.workers.dev"
 
   async function initialise_generators() {
     // Retrieve available generators
